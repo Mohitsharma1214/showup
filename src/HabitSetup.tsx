@@ -9,6 +9,7 @@ interface Props {
 export default function HabitSetup({ onSave }: Props) {
   const [habit, setHabit] = useState("");
   const [action, setAction] = useState("");
+  const [showExample, setShowExample] = useState(false);
 
   function handleSave() {
     if (!habit || !action) return;
@@ -26,7 +27,25 @@ export default function HabitSetup({ onSave }: Props) {
     <div className="container setup-container">
       <div className="header">
         <h1>ShowUp</h1>
-        <p className="subtitle">Set one small habit. Show up every day.</p>
+        <p className="subtitle">The app that makes consistency inevitable</p>
+      </div>
+
+      <div className="problem-statement">
+        <h3>The Problem You Face:</h3>
+        <div className="problem-cycle">
+          <div className="cycle-step">📈 Set ambitious goal</div>
+          <div className="cycle-arrow">→</div>
+          <div className="cycle-step">😰 Feel overwhelmed</div>
+          <div className="cycle-arrow">→</div>
+          <div className="cycle-step">😔 Miss a day</div>
+          <div className="cycle-arrow">→</div>
+          <div className="cycle-step">🚫 Quit entirely</div>
+        </div>
+      </div>
+
+      <div className="solution-preview">
+        <h3>Our Solution:</h3>
+        <p>Make your commitment so small that failure becomes nearly impossible.</p>
       </div>
 
       <div className="form-section">
@@ -42,15 +61,38 @@ export default function HabitSetup({ onSave }: Props) {
         </div>
 
         <div className="input-group">
-          <label htmlFor="action">What's the smallest version you can commit to?</label>
+          <label htmlFor="action">What's the SMALLEST version you can commit to?</label>
           <input
             id="action"
-            placeholder="e.g., 5 push-ups, 1 page, 2 minutes"
+            placeholder="e.g., 1 push-up, 1 page, 1 minute"
             value={action}
             onChange={(e) => setAction(e.target.value)}
             maxLength={100}
           />
-          <small className="help-text">Make it so small you can't fail</small>
+          <div className="help-section">
+            <small className="help-text">Make it embarrassingly small - that's the point!</small>
+            <button 
+              type="button"
+              className="example-btn"
+              onClick={() => setShowExample(!showExample)}
+            >
+              {showExample ? 'Hide' : 'Show'} Examples
+            </button>
+          </div>
+          
+          {showExample && (
+            <div className="examples">
+              <div className="example-item">
+                <strong>Exercise:</strong> "1 push-up" not "30-minute workout"
+              </div>
+              <div className="example-item">
+                <strong>Reading:</strong> "1 page" not "1 chapter"
+              </div>
+              <div className="example-item">
+                <strong>Meditation:</strong> "1 minute" not "20 minutes"
+              </div>
+            </div>
+          )}
         </div>
 
         <button 
@@ -58,7 +100,7 @@ export default function HabitSetup({ onSave }: Props) {
           onClick={handleSave}
           disabled={!habit.trim() || !action.trim()}
         >
-          Start My Journey
+          Start My Consistency Journey
         </button>
       </div>
     </div>
